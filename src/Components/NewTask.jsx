@@ -48,22 +48,21 @@ const NewTask = ({ toggleMode, Mode, addtask }) => {
           />
         </div>
         <div className="w-9/12 my-4 ">
-          <label className="pl-1 text-xl dark:text-white text-black">Task</label>
+          <label className="pl-1 text-xl dark:text-white text-black">Day and time</label>
           <br />
           <input
             type="text"
             className="w-full border-2 dark:border-transparent border-transparent h-12 bg-gray-200 dark:bg-gray-900 my-2 text-black dark:text-white rounded-sm  active:dark:border-slate-700 p-3 placeholder-slate-400  contrast-more:placeholder-slate-500"
-            placeholder="Enter you task"
+            placeholder="Enter Day & time"
             onChange={(e) => { setDay(e.target.value) }}
           />
         </div>
-        <div className='w-9/12 my-4 flex justify-between '>
+        <div className='w-9/12 my-4 flex justify-between'>
           <label htmlFor="checkbox" className='text-white mx-2'>Task is done ?</label>
           <input
             type="checkbox"
             onChange={(e) => { setStatus(e.currentTarget.checked) }}
             name='checkbox' className='mx-2' />
-          checked={status}
         </div>
         <button className="select-none rounded-lg bg-black px-40 py-4 font-bold text-white dark:bg-white dark:text-black" >
           Save Task
