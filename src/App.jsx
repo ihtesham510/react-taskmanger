@@ -24,49 +24,44 @@ function App() {
       id: 1,
       task: 'go shopping with kids',
       time: 'may 22 2:49pm',
-      done: false,
+      status: false,
     },
     {
       id: 2,
       task: 'clean the house in detail ',
       time: 'may 29 9:40pm',
-      done: false,
+      status: false,
     },
     {
       id: 3,
       task: 'go to a bussiness trip with wify',
       time: 'may 30 2:00pm',
-      done: false,
+      status: false,
     },
     {
       id: 4,
       task: 'go to the beack to enjoy holiday',
       time: 'june 22 12:00pm',
-      done: true,
+      status: true,
     },
   ])
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id))
+  setTasks(tasks.filter((task) => task.id !== id))
   }
   const changeStatus = (id) =>
     setTasks(
       tasks.map((task) =>
-        task.id == id ? { ...task, done: !task.done } : task,
+        task.id == id ? { ...task, status: !task.status } : task,
       ),
     )
-  const addTask = (task) => {
-    const id = Math.floor(Math.random() * 1000000 + 1)
-    const newTask = { id, ...task }
-    setTasks([...tasks, newTask])
-  }
-
+  const addTask = (task) => setTasks([...tasks, task])
   return (
     <>
-      <div className="flex h-screen select-none items-center justify-center dark:bg-black  ">
+      <div                             className="flex h-screen select-none items-center justify-center dark:bg-black  ">
         <NewTask
           Mode={darkMode}
-          toggleMode={toggleDarkMode}
-          addtask={addTask}
+     toggleMode={toggleDarkMode}
+          onAdd={addTask}
         />
         <div className={` mx-2  h-full w-1/2 rounded-lg`}>
           <div className="mt-2 grid place-items-center gap-2">
@@ -74,7 +69,7 @@ function App() {
               <Tasks
                 task={task.task}
                 day={task.time}
-                progress={task.done}
+            progress={task.status}
                 onClick={() => deleteTask(task.id)}
                 onDoubleClick={() => changeStatus(task.id)}
               />

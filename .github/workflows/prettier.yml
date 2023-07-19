@@ -1,43 +1,23 @@
-name: Prettier
-
+name: prettier_action 
 on:
-  push:
-    branches:
-      - master
-
+  pull_request:
+    branches: [master]
 jobs:
   prettier:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install Node.js
-        uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Prettier
-        run: npx prettier . --write
-
-      - name: Configure Git
-        run: |
-          git config --global user.name "prettier action"
-          git config --global user.email "ihteshamulhaq510@gmail.com"
-
-      - name: Commit changes
-        run: |
-          git add .
-          git commit -m "Apply Prettier formatting [skip ci]"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+          # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
+          persist-credentials: false
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.3
         with:
+          prettier_options: --write **/*.{js,md}
+          only_changed: True
+          # Set your custom token
           github_token: ${{ secrets.TOKEN }}
-          script: |
-            git push -u origin master
 

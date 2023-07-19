@@ -2,24 +2,18 @@ import React from 'react'
 import { useState } from 'react'
 
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs'
-const NewTask = ({ toggleMode, Mode, addtask }) => {
+const NewTask = ({ toggleMode, Mode, onAdd }) => {
+  const [id] = useState(Math.floor(Math.random() * 10000 + 1))
   const [task, setTask] = useState('')
-  const [day, setDay] = useState('')
+  const [time, setTime] = useState('')
   const [status, setStatus] = useState(false)
   const submit = (e) => {
     e.preventDefault()
-    if (!task) {
-      alert(
-        ' please add a task'
-      )
-    }
-    if (!day) {
-      alert('please add a day')
-    }
-    addtask({ task, day, status })
+    !task | !time ? alert('please enter some task and some day or time')
 
-    setTask(' ')
-    setDay(' ')
+      : onAdd({ id, task, time, status })
+    setTask('')
+    setTime('')
     setStatus(false)
 
   }
@@ -36,15 +30,16 @@ const NewTask = ({ toggleMode, Mode, addtask }) => {
           </button>
         </div>
       </div>
-      <form className="grid h-auto place-items-center " onSubmit={submit}>
+      <form className="grid h-auto place-items-center " onSubmit={submit}  >
         <div className="w-9/12 my-4 ">
           <label className="pl-1 text-xl dark:text-white text-black">Task</label>
           <br />
           <input
             type="text"
+            value={task}
             className="w-full border-2 dark:border-transparent border-transparent h-12 bg-gray-200 dark:bg-gray-900 my-2 text-black dark:text-white rounded-sm  active:dark:border-slate-700 p-3 placeholder-slate-400  contrast-more:placeholder-slate-500"
             placeholder="Enter you task"
-            onChange={(e) => { setTask(e.target.value) }}
+            onChange={(e) => setTask(e.target.value)}
           />
         </div>
         <div className="w-9/12 my-4 ">
@@ -52,21 +47,23 @@ const NewTask = ({ toggleMode, Mode, addtask }) => {
           <br />
           <input
             type="text"
+            value={time}
             className="w-full border-2 dark:border-transparent border-transparent h-12 bg-gray-200 dark:bg-gray-900 my-2 text-black dark:text-white rounded-sm  active:dark:border-slate-700 p-3 placeholder-slate-400  contrast-more:placeholder-slate-500"
             placeholder="Enter Day & time"
-            onChange={(e) => { setDay(e.target.value) }}
+            onChange={(e) => setTime(e.target.value)}
           />
         </div>
         <div className='w-9/12 my-4 flex justify-between'>
           <label htmlFor="checkbox" className='text-white mx-2'>Task is done ?</label>
           <input
             type="checkbox"
-            onChange={(e) => { setStatus(e.currentTarget.checked) }}
-            name='checkbox' className='mx-2' />
+            name='checkbox' className='mx-2'
+            checked={status}
+            onChange={(e) => setStatus(e.currentTarget.checked)}
+          />
+
         </div>
-        <button className="select-none rounded-lg bg-black px-40 py-4 font-bold text-white dark:bg-white dark:text-black" >
-          Save Task
-        </button>
+        <input type="submit" className="select-none rounded-lg bg-black mt-10 px-60 py-4 font-bold text-white dark:bg-white dark:text-black" />
       </form>
     </div>
   )
