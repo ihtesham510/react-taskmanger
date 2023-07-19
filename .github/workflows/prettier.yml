@@ -26,5 +26,7 @@ jobs:
                   git add .
                   git commit -m "Auto-format code"
             - name: Push changes
+              env:
+                  GH_TOKEN: ${{ secrets.TOKEN }}
               run: |
                   git push origin master
