@@ -27,5 +27,4 @@ jobs:
                   git commit -m "Auto-format code"
             - name: Push changes
               run: |
-                  git remote add origin https://github.com/ihtesham510/react-taskmanger.git
                   git push origin master
