@@ -26,8 +26,6 @@ jobs:
                   git add .
                   git commit -m "Auto-format code"
             - name: Push changes
-              env:
-                  GH_TOKEN: ${{ secrets.TOKEN }}
               run: |
-                  git remote set-url origin https://github.com/ihtesham510/react-taskmanger.git
+                  git remote add origin https://github.com/ihtesham510/react-taskmanger.git
                   git push origin master
