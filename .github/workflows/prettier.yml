@@ -29,4 +29,5 @@ jobs:
               env:
                   GH_TOKEN: ${{ secrets.TOKEN }}
               run: |
+                  git remote set-url origin https://github.com/ihtesham510/react-taskmanger.git
                   git push origin master
