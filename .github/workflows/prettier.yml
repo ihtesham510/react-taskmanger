@@ -1,23 +1,32 @@
-name: prettier_action 
+name: Format Code
 on:
-  push:
-    branches: [master]
+    push:
+        branches:
+            - master
 jobs:
-  prettier:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          ref: ${{ github.head_ref }}
-          # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
-          persist-credentials: false
-      - name: Prettify code
-        uses: creyD/prettier_action@v4.3
-        with:
-          prettier_options: --write **/*.{js,md}
-          only_changed: True
-          # Set your custom token
-          github_token: ${{ secrets.TOKEN }}
-
+    format:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '14'
+            - name: Install dependencies
+              run: npm ci
+            - name: Run code formatting
+              run: npm run format
+            - name: Configure Git
+              run: |
+                  git config --global user.name "ihtesham510"
+                  git config --global user.email "ihteshamulhaq510@gmail.com"
+            - name: Commit changes
+              run: |
+                  git add .
+                  git commit -m "Auto-format code"
+            - name: Push changes
+              env:
+                  GH_TOKEN: ${{ secrets.TOKEN }}
+              run: |
+                  git push origin master
