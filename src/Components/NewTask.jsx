@@ -7,11 +7,19 @@ const NewTask = ({ toggleMode, Mode, onAdd }) => {
 	const [task, setTask] = useState('')
 	const [time, setTime] = useState('')
 	const [status, setStatus] = useState(false)
+	const [errorTime, setErrorTime] = useState('')
+	const [errorTask, setErrorTask] = useState('')
+	const setError = () => {
+		setErrorTime('Please enter some Time')
+		setErrorTask('Please enter some Task')
+	}
+	const removeError = () => {
+		setErrorTime('')
+		setErrorTask('')
+	}
 	const submit = (e) => {
 		e.preventDefault()
-		!task | !time
-			? alert('please enter some task and some day or time')
-			: onAdd({ id, task, time, status })
+		!task | !time ? setError() : onAdd({ id, task, time, status })
 		setTask('')
 		setTime('')
 		setStatus(false)
@@ -41,8 +49,12 @@ const NewTask = ({ toggleMode, Mode, onAdd }) => {
 						value={task}
 						className='w-full border-2 dark:border-transparent border-transparent h-12 bg-gray-200 dark:bg-gray-900 my-2 text-black dark:text-white rounded-sm  active:dark:border-slate-700 p-3 placeholder-slate-400  contrast-more:placeholder-slate-500'
 						placeholder='Enter you task'
-						onChange={(e) => setTask(e.target.value)}
+						onChange={(e) => {
+							setTask(e.target.value)
+							setErrorTask('')
+						}}
 					/>
+					<p className='p-1 text-red-600'>{errorTask}</p>
 				</div>
 				<div className='w-9/12 my-4 '>
 					<label className='pl-1 text-xl dark:text-white text-black'>
@@ -54,8 +66,12 @@ const NewTask = ({ toggleMode, Mode, onAdd }) => {
 						value={time}
 						className='w-full border-2 dark:border-transparent border-transparent h-12 bg-gray-200 dark:bg-gray-900 my-2 text-black dark:text-white rounded-sm  active:dark:border-slate-700 p-3 placeholder-slate-400  contrast-more:placeholder-slate-500'
 						placeholder='Enter Day & time'
-						onChange={(e) => setTime(e.target.value)}
+						onChange={(e) => {
+							setTime(e.target.value)
+							setErrorTime('')
+						}}
 					/>
+					<p className='p-1 text-red-600'>{errorTime}</p>
 				</div>
 				<div className='w-9/12 my-4 flex justify-between'>
 					<label
