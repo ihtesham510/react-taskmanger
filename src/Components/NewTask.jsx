@@ -13,10 +13,6 @@ const NewTask = ({ toggleMode, Mode, onAdd }) => {
 		setErrorTime('Please enter some Time')
 		setErrorTask('Please enter some Task')
 	}
-	const removeError = () => {
-		setErrorTime('')
-		setErrorTask('')
-	}
 	const submit = (e) => {
 		e.preventDefault()
 		!task | !time ? setError() : onAdd({ id, task, time, status })
