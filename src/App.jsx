@@ -73,19 +73,17 @@ function App() {
 	return (
 		<>
 			<div
-				className={`flex h-screen select-none items-center justify-center ${
-					darkMode ? 'dark:bg-black' : ''
-				}`}
+				className={`lg:flex h-screen select-none items-center justify-center`}
 			>
 				<NewTask
 					Mode={darkMode}
 					toggleMode={toggleDarkMode}
 					onAdd={addTask}
 				/>
-				<div className={`mx-2 h-full w-1/2 rounded-lg`}>
-					<div className="mt-2 grid place-items-center gap-2">
+				<div className={`mx-2 h-full lg:w-1/2 rounded-lg`}>
+					<div className='mt-2 grid place-items-center gap-2'>
 						{tasks.length === 0 ? (
-							<h1 className="dark:text-white">
+							<h1 className='dark:text-white'>
 								no tasks currently available
 							</h1>
 						) : (
