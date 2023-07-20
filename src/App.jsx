@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs'
 import NewTask from './Components/NewTask'
-
 import Tasks from './Components/Tasks'
+
 function App() {
 	const [darkMode, setDarkMode] = useState(getInitialMode())
 
@@ -19,61 +18,88 @@ function App() {
 	function toggleDarkMode() {
 		setDarkMode((prevMode) => !prevMode)
 	}
-	const [tasks, setTasks] = useState([
-		{
-			id: 1,
-			task: 'go shopping with kids',
-			time: 'may 22 2:49pm',
-			status: false,
-		},
-		{
-			id: 2,
-			task: 'clean the house in detail ',
-			time: 'may 29 9:40pm',
-			status: false,
-		},
-		{
-			id: 3,
-			task: 'go to a bussiness trip with wify',
-			time: 'may 30 2:00pm',
-			status: false,
-		},
-		{
-			id: 4,
-			task: 'go to the beack to enjoy holiday',
-			time: 'june 22 12:00pm',
-			status: true,
-		},
-	])
-	const deleteTask = (id) => {
+
+	const [tasks, setTasks] = useState([])
+
+	useEffect(() => {
+		const getTasks = async () => {
+			const dataFromServer = await fetchTasks()
+			setTasks(dataFromServer)
+		}
+		getTasks()
+	}, [])
+
+	const fetchTasks = async () => {
+		const res = await fetch('http://localhost:5000/tasks')
+		const data = await res.json()
+		return data
+	}
+
+	const deleteTask = async (id) => {
+		await fetch(`http://localhost:5000/tasks/${id}`, { method: 'DELETE' })
 		setTasks(tasks.filter((task) => task.id !== id))
 	}
-	const changeStatus = (id) =>
+
+	const changeStatus = async (id) => {
+		const taskToToggle = tasks.find((task) => task.id === id)
+		const updtask = { ...taskToToggle, status: !taskToToggle.status }
+		await fetch(`http://localhost:5000/tasks/${id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify(updtask),
+		})
 		setTasks(
 			tasks.map((task) =>
-				task.id == id ? { ...task, status: !task.status } : task,
+				task.id === id ? { ...task, status: !task.status } : task,
 			),
 		)
-	const addTask = (task) => setTasks([...tasks, task])
+	}
+	function generateId() {
+		return Math.floor(Math.random() * 1000 + 1)
+	}
+
+	const addTask = async (task) => {
+		const newTask = { ...task, id: generateId() }
+		const res = await fetch('http://localhost:5000/tasks', {
+			method: 'POST',
+			headers: { 'Content-type': 'application/json' },
+			body: JSON.stringify(newTask),
+		})
+		const data = await res.json()
+		setTasks([...tasks, data])
+	}
 	return (
 		<>
-			<div className="flex h-screen select-none items-center justify-center dark:bg-black  ">
+			<div
+				className={`flex h-screen select-none items-center justify-center ${
+					darkMode ? 'dark:bg-black' : ''
+				}`}
+			>
 				<NewTask
 					Mode={darkMode}
 					toggleMode={toggleDarkMode}
 					onAdd={addTask}
 				/>
-				<div className={` mx-2  h-full w-1/2 rounded-lg`}>
-					<div className="mt-2 grid place-items-center gap-2">
-						{tasks.map((task) => (
-							<Tasks
-								task={task.task}
-								day={task.time}
-								progress={task.status}
-								onClick={() => deleteTask(task.id)}
-								onDoubleClick={() => changeStatus(task.id)}
-							/>
-						))}
+				<div className={`mx-2 h-full w-1/2 rounded-lg`}>
+					<div className='mt-2 grid place-items-center gap-2'>
+						{tasks.length === 0 ? (
+							<h1 className='dark:text-white'>
+								no tasks currently available
+							</h1>
+						) : (
+							tasks.map((task) => (
+								<Tasks
+									key={task.id}
+									task={task.task}
+									day={task.time}
+									progress={task.status}
+									onClick={() => deleteTask(task.id)}
+									onDoubleClick={() => changeStatus(task.id)}
+								/>
+							))
+						)}
 					</div>
 				</div>
 			</div>
