@@ -64,6 +64,7 @@ const NewTask = ({ toggleMode, Mode, onAdd }) => {
 					>
 						Task is done ?
 					</label>
+
 					<input
 						type='checkbox'
 						name='checkbox'
@@ -72,10 +73,13 @@ const NewTask = ({ toggleMode, Mode, onAdd }) => {
 						onChange={(e) => setStatus(e.currentTarget.checked)}
 					/>
 				</div>
-				<input
-					type='submit'
-					className='select-none rounded-lg bg-black mt-10 lg:px-60 sm:px-72 sm:mb-12 py-4 font-bold text-white dark:bg-white dark:text-black'
-				/>
+
+				<div className='w-9/12 my-4 '>
+					<input
+						type='submit'
+						className='select-none rounded-lg bg-black mt-10 w-full sm:mb-12 py-4 font-bold text-white dark:bg-white dark:text-black'
+					/>
+				</div>
 			</form>
 		</div>
 	)
