@@ -80,10 +80,14 @@ function App() {
 					toggleMode={toggleDarkMode}
 					onAdd={addTask}
 				/>
-				<div className={`mx-2 h-full lg:w-1/2 rounded-lg`}>
-					<div className='mt-2 grid place-items-center gap-2'>
+				<div className={`mx-2 h-full lg:w-1/2`}>
+					<div
+						className={`mt-2 grid place-items-center ${
+							tasks.length === 0 ? 'lg:mt-80' : ''
+						} gap-2`}
+					>
 						{tasks.length === 0 ? (
-							<h1 className='dark:text-white'>
+							<h1 className='dark:text-white text-xl'>
 								no tasks currently available
 							</h1>
 						) : (
