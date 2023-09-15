@@ -17,7 +17,7 @@ const Tasks = ({ task, day, progress, onClick, onDoubleClick }) => {
 				>
 					{task}
 				</h4>
-				<p className='text-md mx-5 select-none text-black dark:text-white'>
+				<p className="text-md mx-5 select-none text-black dark:text-white">
 					{day}
 				</p>
 			</div>
