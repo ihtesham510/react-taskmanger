@@ -87,7 +87,7 @@ function App() {
 						} gap-2`}
 					>
 						{tasks.length === 0 ? (
-							<h1 className="dark:text-white text-xl">
+							<h1 className='dark:text-white text-xl'>
 								no tasks currently available
 							</h1>
 						) : (
