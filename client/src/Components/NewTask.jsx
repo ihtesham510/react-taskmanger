@@ -5,17 +5,19 @@ const NewTask = ({ toggleMode, Mode, onAdd }) => {
 	const [task, setTask] = useState('')
 	const [time, setTime] = useState('')
 	const [status, setStatus] = useState(false)
-	const [errorTime, setErrorTime] = useState('')
-	const [errorTask, setErrorTask] = useState('')
-	const setError = () => {
-		setErrorTime('Please enter some Time')
-		setErrorTask('Please enter some Task')
-	}
+	const [errorTime, setErrorTime] = useState(false)
+	const [errorTask, setErrorTask] = useState(false)
+
 	const submit = e => {
 		e.preventDefault()
-		!task | !time ? setError() : onAdd({ task, time, status })
-		setTask('')
-		setTime('')
+		if (!task | !time) {
+			!task && setErrorTask(true)
+			!time && setErrorTime(true)
+		} else {
+			onAdd({ task, time, status })
+			setTask('')
+			setTime('')
+		}
 		setStatus(false)
 	}
 	return (
@@ -44,10 +46,16 @@ const NewTask = ({ toggleMode, Mode, onAdd }) => {
 						placeholder="Enter you task"
 						onChange={e => {
 							setTask(e.target.value)
-							setErrorTask('')
+							setErrorTask(false)
 						}}
 					/>
-					<p className="p-1 text-red-600">{errorTask}</p>
+					<p
+						className={`m-1 text-red-600 ${
+							errorTask ? 'opacity-100' : 'opacity-0'
+						} `}
+					>
+						Enter some Task
+					</p>
 				</div>
 				<div className="w-9/12 my-4 ">
 					<label className="pl-1 text-xl dark:text-white text-black">
@@ -61,10 +69,16 @@ const NewTask = ({ toggleMode, Mode, onAdd }) => {
 						placeholder="Enter Day & time"
 						onChange={e => {
 							setTime(e.target.value)
-							setErrorTime('')
+							setErrorTime(false)
 						}}
 					/>
-					<p className="p-1 text-red-600">{errorTime}</p>
+					<p
+						className={`m-1 text-red-600 ${
+							errorTime ? 'opacity-100' : 'opacity-0'
+						} `}
+					>
+						Enter some Time
+					</p>
 				</div>
 				<div className="w-9/12 my-4 flex justify-between">
 					<label
