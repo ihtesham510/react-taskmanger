@@ -1,62 +1,12 @@
-import { useState, useEffect } from 'react'
 import NewTask from './Components/NewTask'
 import Tasks from './Components/Tasks'
 import { useDarkMode } from './Hooks/useDarkMode'
+import useTasks from './Hooks/useTasks'
 
 function App() {
 	const { darkMode, toggleDarkMode } = useDarkMode()
+	const { tasks, addTask, deleteTask, changeStatus } = useTasks()
 
-	const [tasks, setTasks] = useState([])
-
-	useEffect(() => {
-		const getTasks = async () => {
-			const dataFromServer = await fetchTasks()
-			setTasks(dataFromServer)
-		}
-		getTasks()
-	}, [])
-
-	const fetchTasks = async () => {
-		const res = await fetch('http://localhost:7000/tasks')
-		const data = await res.json()
-		return data
-	}
-
-	const deleteTask = async _id => {
-		await fetch(`http://localhost:7000/tasks/${_id}`, { method: 'DELETE' })
-		setTasks(tasks.filter(task => task._id !== _id))
-	}
-	const changeStatus = async _id => {
-		const taskToToggle = tasks.find(task => task._id === _id)
-
-		const updatedTask = { ...taskToToggle, status: !taskToToggle.status }
-
-		const response = await fetch(`http://localhost:7000/tasks/${_id}`, {
-			method: 'PATCH',
-			headers: {
-				'Content-type': 'application/json',
-			},
-			body: JSON.stringify(updatedTask),
-		})
-		const data = await response.json()
-		console.log('Fetch response:', data)
-
-		setTasks(prevTasks =>
-			prevTasks.map(task =>
-				task._id === _id ? { ...task, status: !task.status } : task,
-			),
-		)
-	}
-	const addTask = async task => {
-		const newTask = { ...task }
-		const res = await fetch('http://localhost:7000/tasks', {
-			method: 'POST',
-			headers: { 'Content-type': 'application/json' },
-			body: JSON.stringify(newTask),
-		})
-		const data = await res.json()
-		setTasks([...tasks, data])
-	}
 	return (
 		<>
 			<div
