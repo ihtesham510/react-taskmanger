@@ -1,23 +1,10 @@
 import { useState, useEffect } from 'react'
 import NewTask from './Components/NewTask'
 import Tasks from './Components/Tasks'
+import { useDarkMode } from './Hooks/useDarkMode'
 
 function App() {
-	const [darkMode, setDarkMode] = useState(getInitialMode())
-
-	useEffect(() => {
-		document.documentElement.classList.toggle('dark', darkMode)
-		localStorage.setItem('darkMode', JSON.stringify(darkMode))
-	}, [darkMode])
-
-	function getInitialMode() {
-		const savedMode = JSON.parse(localStorage.getItem('darkMode'))
-		return savedMode || false // Set to true if you want dark mode as the default.
-	}
-
-	function toggleDarkMode() {
-		setDarkMode(prevMode => !prevMode)
-	}
+	const { darkMode, toggleDarkMode } = useDarkMode()
 
 	const [tasks, setTasks] = useState([])
 
