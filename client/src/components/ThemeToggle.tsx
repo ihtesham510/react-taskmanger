@@ -1,4 +1,4 @@
-import useTheme from '@/Hooks/useTheme'
+import { useTheme } from '@/context/ThemeContext'
 import { Button } from './ui/button'
 import { MoonIcon, SunIcon } from 'lucide-react'
 export default function ThemeToggleButton() {

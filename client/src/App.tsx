@@ -14,6 +14,14 @@ function App() {
 				<Routes>
 					<Route path='/signin' element={<LoginForm />} />
 					<Route path='/signup' element={<SignUpForm />} />
+					<Route
+						path='/'
+						element={
+							<>
+								<ThemeToggleButton />
+							</>
+						}
+					/>
 				</Routes>
 			</BrowserRouter>
 		</>
