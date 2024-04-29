@@ -11,7 +11,7 @@ const app = express()
 const port = process.env.PORT || 3000
 const mongo_uri = process.env.MONGO_URI || 'mongodb://localhost:27017/'
 
-app.use(cors())
+app.use(cors({ origin: ['http://localhost:3000', '*', 'http://localhost:5173'], credentials: true }))
 app.use(bodyParser())
 app.use(cookieParser())
 app.use(userRoute)
