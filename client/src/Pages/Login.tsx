@@ -6,6 +6,10 @@ import { Label } from '@/components/ui/label'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import axios from 'axios'
+import useUser from '@/Hooks/useUser'
+import { User } from '@/store'
+import { useEffect } from 'react'
 
 interface Form {
 	email: string
@@ -13,6 +17,7 @@ interface Form {
 }
 
 export default function Login() {
+	const { user, setUser } = useUser()
 	const FormSchema = yup.object().shape({
 		email: yup.string().email().required(),
 		password: yup.string().min(8).max(30).required(),
@@ -22,7 +27,15 @@ export default function Login() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<Form>({ resolver: yupResolver(FormSchema) })
-	const onSubmit = (data: Form) => console.log(data)
+	useEffect(() => {
+		console.log(user)
+	}, [user])
+	const onSubmit = (data: Form) => {
+		axios
+			.post('http://localhost:3000/signin', data, { withCredentials: true })
+			.then(res => setUser(res.data as User))
+			.catch(err => console.log(err))
+	}
 
 	return (
 		<div className='flex h-screen w-full justify-center items-center'>

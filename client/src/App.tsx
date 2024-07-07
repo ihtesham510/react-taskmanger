@@ -7,9 +7,11 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Register from './Pages/Register'
 import Login from './Pages/Login'
 import useTheme from './Hooks/useTheme'
+import useUser from './Hooks/useUser'
 
 const App = () => {
 	const { theme } = useTheme()
+	const { user } = useUser()
 	return (
 		<>
 			<BrowserRouter>

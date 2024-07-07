@@ -1,8 +1,9 @@
+import { User } from 'lucide-react'
 import { create } from 'zustand'
 
-type Theme = 'dark' | 'light'
+export type Theme = 'dark' | 'light'
 
-interface User {
+export interface User {
 	_id: string
 	email: string
 	first_name: string
@@ -11,8 +12,8 @@ interface User {
 	_v: number
 }
 interface UserStore {
-	user: User | undefined
-	setUser: (user: User | undefined) => void
+	user: User | undefined | 'loading'
+	setUser: (user: User | undefined | 'loading') => void
 }
 
 interface ThemeStore {
