@@ -18,6 +18,7 @@ export const signup = async (req: Request, res: Response) => {
     const jwt_token = jsonwebtoken.sign({ ...newUser }, JWT_SECRET, {
       algorithm: 'HS256',
     })
+    console.log('cookie is set ', jwt_token)
     res.cookie('jwt', jwt_token, { httpOnly: true, expires: new Date(Date.now() + expiry) })
     return res.status(200).json(newUser)
   } catch (error) {
@@ -39,7 +40,8 @@ export const signin = async (req: Request, res: Response) => {
       const jwt_token = jsonwebtoken.sign({ ...user }, JWT_SECRET, {
         algorithm: 'HS256',
       })
-      res.cookie('jwt', jwt_token, { httpOnly: true, expires: new Date(Date.now() + expiry) })
+      console.log('cookie is set ', jwt_token)
+      res.cookie('jwt', jwt_token, { httpOnly: true, expires: new Date(Date.now() + 100000000) })
       return res.status(200).json(user)
     }
     return res.status(409).json({ Error: 'Password is incorrect', User: user, Password: password })
@@ -64,7 +66,7 @@ export default async function auth(req: Request, res: Response) {
   if (!jwt) return res.status(404).json({ Error: 'no cookie' })
   try {
     const data: any = jsonwebtoken.verify(jwt, JWT_SECRET)
-    const { email, password } = data._doc
+    const { email } = data._doc
     const userExists = await User.findOne({ email: email })
     if (userExists) return res.status(200).json(userExists)
     return res.status(404).json({ Error: 'User does not exists anymore' })

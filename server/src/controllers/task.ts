@@ -70,8 +70,7 @@ export const updateTaskbyId = async (req: Request, res: Response) => {
       completed: completed,
       updatedAt: `${Date.now().toString()}`,
     })
-    const updatedTask = await Task.findById(id)
-    return res.status(200).json(updatedTask)
+    return res.status(200).json(newTask)
   } catch (err) {
     return res.status(500).json('Missing request body')
   }
