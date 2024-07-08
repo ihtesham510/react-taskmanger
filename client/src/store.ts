@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { User } from 'lucide-react'
 import { create } from 'zustand'
 
@@ -14,6 +15,7 @@ export interface User {
 interface UserStore {
 	user: User | undefined | 'loading'
 	setUser: (user: User | undefined | 'loading') => void
+	getAuth: () => void
 }
 
 interface ThemeStore {
@@ -33,4 +35,14 @@ export const useThemeStore = create<ThemeStore>(set => ({
 export const useUserStore = create<UserStore>(set => ({
 	user: undefined,
 	setUser: user => set({ user: user }),
+	getAuth: async () => {
+		set({ user: 'loading' })
+		axios
+			.get('http://localhost:3000/auth', { withCredentials: true })
+			.then(res => set({ user: res.data }))
+			.catch(err => {
+				set({ user: undefined })
+				console.log(err)
+			})
+	},
 }))

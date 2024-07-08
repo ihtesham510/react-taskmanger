@@ -5,6 +5,7 @@ import Loading from './Loading'
 
 const ProtectedRoute: React.FC<PropsWithChildren> = ({ children }) => {
 	const { user } = useUserStore()
+	if (user === 'loading') return <Loading />
 	return user ? children : <Navigate to='/register' />
 }
 
