@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import jsonwebtoken from 'jsonwebtoken'
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+import prisma from '../lib/prisma'
 
 const JWT_EXPIRY = Number(process.env.JWT_EXPIRY) || 1
 const expiry = JWT_EXPIRY * 24 * 60 * 60 * 1000
@@ -13,7 +12,7 @@ export const signup = async (req: Request, res: Response) => {
   if (!JWT_SECRET) throw new Error('JWT secret must be provided')
 
   try {
-    const userExists = ''
+    const userExists = await prisma.user.findFirst({ where: { email: email } })
     if (userExists) return res.status(409).json({ Error: 'user already exists' })
     const newUser = await prisma.user.create({
       data: { email: email, password: password, first_name: first_name, last_name: last_name },
@@ -67,7 +66,7 @@ export default async function auth(req: Request, res: Response) {
   if (!jwt) return res.status(404).json({ Error: 'no cookie' })
   try {
     const data: any = jsonwebtoken.verify(jwt, JWT_SECRET)
-    const email: string = data._doc.email
+    const email: string = data.email
     const userExists = await prisma.user.findFirst({
       where: {
         email: email,
