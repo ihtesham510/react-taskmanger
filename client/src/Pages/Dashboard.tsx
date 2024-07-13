@@ -1,5 +1,16 @@
+import { Button } from '@/components/ui/button'
+import useUser from '@/Hooks/useUser'
+
 const Dashboard = () => {
-	return <div>Dashboard</div>
+	const { signOut } = useUser()
+
+	return (
+		<div>
+			Dashboard
+			<br />
+			<Button onClick={signOut}>Sign Out</Button>
+		</div>
+	)
 }
 
 export default Dashboard

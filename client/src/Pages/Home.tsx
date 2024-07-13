@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import useTheme from '@/Hooks/useTheme'
+import { useTheme } from '@/Hooks/useTheme'
 
 const Home = () => {
 	const { theme, switchTheme } = useTheme()

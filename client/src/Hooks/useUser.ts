@@ -1,10 +1,8 @@
-import { useUserStore } from '@/store'
-import { useEffect } from 'react'
+import { UserContext } from '@/context/UserContext'
+import { useContext } from 'react'
 
 export default function useUser() {
-	const userStore = useUserStore()
-	useEffect(() => {
-		userStore.getAuth()
-	}, [])
-	return userStore
+	const userContext = useContext(UserContext)
+	if (!userContext) throw new Error('User context must be provided')
+	return userContext
 }

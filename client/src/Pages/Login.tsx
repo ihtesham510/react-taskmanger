@@ -8,8 +8,8 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
 import useUser from '@/Hooks/useUser'
-import { User } from '@/store'
 import { useEffect } from 'react'
+import { User } from '@/context/UserContext'
 
 interface Form {
 	email: string

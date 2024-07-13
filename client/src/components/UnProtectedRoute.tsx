@@ -1,12 +1,12 @@
-import { useUserStore } from '@/store'
 import { PropsWithChildren } from 'react'
 import { Navigate } from 'react-router-dom'
 import Loading from './Loading'
+import useUser from '@/Hooks/useUser'
 
 const UnProtectedRoute: React.FC<PropsWithChildren> = ({ children }) => {
-	const { user } = useUserStore()
-	if (user === 'loading') return <Loading />
-	return user ? <Navigate to='/dashboard' /> : children
+	const { user, isLoading } = useUser()
+	if (isLoading) return <Loading />
+	return user && !isLoading ? <Navigate to='/dashboard' /> : children
 }
 
 export default UnProtectedRoute

@@ -1,14 +1,8 @@
-import { useThemeStore } from '@/store'
-import { useEffect } from 'react'
+import { ThemeContext } from '@/context/Theme'
+import { useContext } from 'react'
 
-export default function useTheme() {
-	const themestore = useThemeStore()
-	useEffect(() => {
-		;(() =>
-			themestore.theme === 'dark'
-				? document.documentElement.classList.add('dark')
-				: document.documentElement.classList.remove('dark'))()
-		localStorage.setItem('theme', themestore.theme)
-	}, [themestore.theme])
-	return themestore
+export const useTheme = () => {
+	const themeContext = useContext(ThemeContext)
+	if (!themeContext) throw new Error('Theme context must be provided')
+	return themeContext
 }

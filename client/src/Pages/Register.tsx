@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import RegisterImage from '@/components/RegisterImage'
 import axios from 'axios'
+import useUser from '@/Hooks/useUser'
+import { User } from '@/context/UserContext'
 
 interface Form {
 	email: string
@@ -32,11 +34,13 @@ function Register() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<Form>({ resolver: yupResolver(FormSchema) })
+	const { user, setUser } = useUser()
 	const onSubmit = (data: Form) => {
 		axios
 			.post('http://localhost:3000/signup', data)
 			.then(res => {
 				console.log(res.data)
+				setUser(res.data as User)
 			})
 			.catch(err => console.log(err))
 	}
