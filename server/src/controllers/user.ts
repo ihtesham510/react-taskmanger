@@ -63,7 +63,7 @@ export default async function auth(req: Request, res: Response) {
   const JWT_SECRET = process.env.JWT_SECRET
   if (!JWT_SECRET) throw new Error('JWT secret must be provided')
   const jwt = req.cookies.jwt
-  if (!jwt) return res.status(404).json({ Error: 'no cookie' })
+  if (!jwt) return res.status(405).json({ Error: 'no cookie' })
   try {
     const data: any = jsonwebtoken.verify(jwt, JWT_SECRET)
     const email: string = data.email
@@ -77,4 +77,9 @@ export default async function auth(req: Request, res: Response) {
   } catch (err) {
     return res.status(500).json({ Error: 'Error while checking user' })
   }
+}
+
+export const signOut = async (req: Request, res: Response) => {
+  res.cookie('jwt', {}, { httpOnly: true, expires: new Date(Date.now()) })
+  res.json('signed out')
 }
