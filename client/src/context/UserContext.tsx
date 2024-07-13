@@ -26,8 +26,11 @@ const UserContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
 				return setuser(res.data as User)
 			} catch (err) {
 				if (err instanceof AxiosError) {
-					if (err.status === 405) return setuser(undefined)
-					console.log(err)
+					if (err.message === 'Request failed with status code 405') {
+						setuser(undefined)
+					} else {
+						console.log(err.message)
+					}
 				}
 				return setuser(undefined)
 			} finally {

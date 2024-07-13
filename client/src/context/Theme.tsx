@@ -18,6 +18,7 @@ const ThemeContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
 			? document.documentElement.classList.add('dark')
 			: document.documentElement.classList.remove('dark')
 		localStorage.setItem('theme', theme)
+		console.log(theme)
 	}, [theme])
 	const switchTheme = useCallback(() => setTheme(prev => (prev === 'dark' ? 'light' : 'dark')), [theme])
 	return <ThemeContext.Provider value={{ theme, switchTheme }}>{children}</ThemeContext.Provider>
