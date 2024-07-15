@@ -6,7 +6,7 @@ import useUser from '@/Hooks/useUser'
 const UnProtectedRoute: React.FC<PropsWithChildren> = ({ children }) => {
 	const { user, isLoading } = useUser()
 	if (isLoading) return <Loading />
-	return user && !isLoading ? <Navigate to='/dashboard' /> : children
+	return user && !isLoading ? <Navigate to='/dashboard/overview' /> : children
 }
 
 export default UnProtectedRoute
