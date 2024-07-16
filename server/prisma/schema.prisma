@@ -23,20 +23,32 @@ model User {
 }
 
 model Project {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  description String
-  dateCreated DateTime
-  tasks       Task[]
-  userId      String   @db.ObjectId
-  User        User     @relation(fields: [userId], references: [id])
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  description  String
+  hashTags     String[]
+  technologies String[]
+  dateCreated  DateTime
+  tasks        Task[]
+  userId       String   @db.ObjectId
+  User         User     @relation(fields: [userId], references: [id])
 }
 
 model Task {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   status      String
+  tags        String[]
+  subTasks    SubTask[]
   description String
-  Project     Project? @relation(fields: [projectId], references: [id])
-  projectId   String?  @db.ObjectId
+  Project     Project?  @relation(fields: [projectId], references: [id])
+  projectId   String?   @db.ObjectId
+}
+
+model SubTask {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  completed Boolean
+  title     String
+  Task      Task?   @relation(fields: [taskId], references: [id])
+  taskId    String? @db.ObjectId
 }

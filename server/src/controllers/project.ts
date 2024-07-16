@@ -59,3 +59,12 @@ export const deleteProjectbyId = async (req: Request, res: Response) => {
     return res.status(500).json({ Error: 'Error while deleting project' })
   }
 }
+
+export const addManyProjects = async (req: Request, res: Response) => {
+  try {
+    const newProjects = await prisma.project.createMany({ data: req.body })
+    return res.status(200).json(newProjects)
+  } catch (err) {
+    return res.status(500).json({ Error: 'error while creating projects', err: err })
+  }
+}
