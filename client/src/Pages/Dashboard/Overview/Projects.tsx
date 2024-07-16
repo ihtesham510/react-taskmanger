@@ -50,6 +50,11 @@ const Projects = () => {
 								)
 							}
 						})}
+					{data && !isLoading && data?.length === 0 && (
+						<div className='size-full text-center'>
+							<p className='m-9 text-xl'>No Projects</p>
+						</div>
+					)}
 				</span>
 			</div>
 		</div>
