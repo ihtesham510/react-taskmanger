@@ -59,12 +59,12 @@ function Register() {
 							<div className='grid gap-2'>
 								<Label htmlFor='first_name'>First Name</Label>
 								<Input id='first_name' {...register('first_name')} type='text' required />
-								<p className='text-red-400 text-xs'>{errors.first_name?.message}</p>
+								<p className='text-xs text-red-400'>{errors.first_name?.message}</p>
 							</div>
 							<div className='grid gap-2'>
 								<Label htmlFor='last_name'>Last Name</Label>
 								<Input id='last_name' type='text' required {...register('last_name')} />
-								<p className='text-red-400 text-xs'>{errors.last_name?.message}</p>
+								<p className='text-xs text-red-400'>{errors.last_name?.message}</p>
 							</div>
 						</div>
 
@@ -77,19 +77,19 @@ function Register() {
 								required
 								{...register('email')}
 							/>
-							<p className='text-red-400 text-xs'>{errors.email?.message}</p>
+							<p className='text-xs text-red-400'>{errors.email?.message}</p>
 						</div>
 
 						<div className='grid gap-2'>
 							<Label htmlFor='password'>password</Label>
 							<Input id='password' type='password' required {...register('password')} />
-							<p className='text-red-400 text-xs'>{errors.password?.message}</p>
+							<p className='text-xs text-red-400'>{errors.password?.message}</p>
 						</div>
 
 						<div className='grid gap-2'>
 							<Label htmlFor='confirmpassword'>Confirm Password</Label>
 							<Input id='confirmpassword' type='password' required {...register('confirmpassword')} />
-							<p className='text-red-400 text-xs'>{errors.confirmpassword?.message}</p>
+							<p className='text-xs text-red-400'>{errors.confirmpassword?.message}</p>
 						</div>
 
 						<Button type='submit' className='w-full'>
@@ -104,8 +104,8 @@ function Register() {
 					</div>
 				</div>
 			</div>
-			<div className='hidden bg-primary-foreground  lg:flex lg:justify-center lg:items-center'>
-				<RegisterImage className='size-72 m-9' />
+			<div className='hidden bg-primary-foreground lg:flex lg:items-center lg:justify-center'>
+				<RegisterImage className='m-9 size-72' />
 			</div>
 		</div>
 	)

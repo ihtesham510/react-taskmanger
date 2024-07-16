@@ -11,9 +11,9 @@ const ThemeButton: React.FC<Props> = ({ className }) => {
 		<div className={className}>
 			<Button onClick={switchTheme} variant='outline' size='icon'>
 				{theme == 'dark' ? (
-					<MoonIcon className='w-[20px] h-[20px]' />
+					<MoonIcon className='h-[20px] w-[20px]' />
 				) : (
-					<SunIcon className='w-[20px] h-[20px]' />
+					<SunIcon className='h-[20px] w-[20px]' />
 				)}
 			</Button>
 		</div>

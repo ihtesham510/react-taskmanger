@@ -38,7 +38,7 @@ export default function Login() {
 	}
 
 	return (
-		<div className='flex h-screen w-full justify-center items-center'>
+		<div className='flex h-screen w-full items-center justify-center'>
 			<Card className='mx-auto max-w-sm'>
 				<CardHeader>
 					<CardTitle className='text-2xl'>Login</CardTitle>
@@ -55,12 +55,12 @@ export default function Login() {
 								{...register('email')}
 								required
 							/>
-							<p className='text-red-400 text-xs'>{errors.email?.message}</p>
+							<p className='text-xs text-red-400'>{errors.email?.message}</p>
 						</div>
 						<div className='grid gap-2'>
 							<Label htmlFor='password'>Password</Label>
 							<Input id='password' type='password' required {...register('password')} />
-							<p className='text-red-400 text-xs'>{errors.password?.message}</p>
+							<p className='text-xs text-red-400'>{errors.password?.message}</p>
 						</div>
 						<Button type='submit' className='w-full'>
 							Login

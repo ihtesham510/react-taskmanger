@@ -20,7 +20,7 @@ const SideBar = () => {
 						<TooltipTrigger asChild>
 							<Link
 								to='/dashboard/overview'
-								className={` ${isActive('/dashboard/overview') ? 'bg-accent text-white' : ''}text-muted-foreground flex h-9 w-9 items-center justify-center rounded-lg  transition-colors hover:text-foreground md:h-8 md:w-8`}
+								className={` ${isActive('/dashboard/overview') ? 'bg-accent text-white' : ''}text-muted-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8`}
 							>
 								<LayoutDashboardIcon className='h-5 w-5' />
 								<span className='sr-only'>Dashboard</span>
@@ -32,7 +32,7 @@ const SideBar = () => {
 						<TooltipTrigger asChild>
 							<Link
 								to='/dashboard/alltasks'
-								className={` ${isActive('/dashboard/alltasks') ? 'bg-accent text-white' : ''}text-muted-foreground flex h-9 w-9 items-center justify-center rounded-lg  transition-colors hover:text-foreground md:h-8 md:w-8`}
+								className={` ${isActive('/dashboard/alltasks') ? 'bg-accent text-white' : ''}text-muted-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8`}
 							>
 								<ListTodoIcon className='h-5 w-5' />
 								<span className='sr-only'>All Tasks</span>
@@ -44,7 +44,7 @@ const SideBar = () => {
 						<TooltipTrigger asChild>
 							<Link
 								to='/dashboard/projects'
-								className={` ${isActive('/dashboard/projects') ? 'bg-accent text-white' : ''}text-muted-foreground flex h-9 w-9 items-center justify-center rounded-lg  transition-colors hover:text-foreground md:h-8 md:w-8`}
+								className={` ${isActive('/dashboard/projects') ? 'bg-accent text-white' : ''}text-muted-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8`}
 							>
 								<FolderGit2Icon className='h-5 w-5' />
 								<span className='sr-only'>Projects</span>
@@ -56,7 +56,7 @@ const SideBar = () => {
 						<TooltipTrigger asChild>
 							<Link
 								to='/dashboard/analytics'
-								className={` ${isActive('/dashboard/analytics') ? 'bg-accent text-white' : ''}text-muted-foreground flex h-9 w-9 items-center justify-center rounded-lg  transition-colors hover:text-foreground md:h-8 md:w-8`}
+								className={` ${isActive('/dashboard/analytics') ? 'bg-accent text-white' : ''}text-muted-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8`}
 							>
 								<LineChart className='h-5 w-5' />
 								<span className='sr-only'>Analytics</span>
