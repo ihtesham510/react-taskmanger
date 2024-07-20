@@ -23,15 +23,14 @@ model User {
 }
 
 model Project {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  description  String
-  hashTags     String[]
-  technologies String[]
-  dateCreated  DateTime
-  tasks        Task[]
-  userId       String   @db.ObjectId
-  User         User     @relation(fields: [userId], references: [id])
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  hashTags    String[]
+  dateCreated DateTime
+  tasks       Task[]
+  userId      String   @db.ObjectId
+  User        User     @relation(fields: [userId], references: [id])
 }
 
 model Task {
