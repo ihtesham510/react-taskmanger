@@ -1,22 +1,34 @@
-import { CheckCircle, Circle, CircleDashed, CircleX } from 'lucide-react'
-import StatusCard from './StatusCard'
 import BarCharter from './BarChart'
 import Projects from './Projects'
+import useFetchProjects from '@/Hooks/useFetchProjects'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Loading from '@/components/Loading'
 
 const Overview = () => {
+	const { data, isLoading, isError } = useFetchProjects()
+	const navigate = useNavigate()
+
+	useEffect(() => {
+		if (isError) {
+			navigate('/error')
+		}
+	}, [isError, navigate])
+
+	if (isLoading && !data) return <Loading />
+	const statuses = ['completed', 'ongoing', 'todo', 'cancelled', 'paused']
+	const statusesCounts = statuses.map(
+		status =>
+			data?.reduce((count, project) => {
+				const completedTasks = project.tasks?.filter(task => task.status === status).length || 0
+				return count + completedTasks
+			}, 0) || 0,
+	)
 	return (
 		<>
 			<div className='flex flex-col lg:flex-row'>
-				<div className='flex w-[100%] flex-col justify-center gap-4 lg:w-[50%]'>
-					<div className='mx-auto mt-9 flex flex-wrap justify-center gap-4'>
-						<StatusCard status='Completed' Icon={CheckCircle} value={30} color='bg-green-500' />
-						<StatusCard status='Ongoing' Icon={CircleDashed} value={30} color='bg-blue-600' />
-						<StatusCard status='To Do' Icon={Circle} value={30} color='bg-accent' />
-						<StatusCard status='Cancelled' Icon={CircleX} value={30} color='bg-red-600' />
-					</div>
-					<BarCharter />
-				</div>
-				<Projects />
+				<BarCharter statusCounts={statusesCounts} />
+				<Projects projects={data} />
 			</div>
 		</>
 	)

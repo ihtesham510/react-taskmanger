@@ -13,7 +13,9 @@ import {
 	DropdownMenuSubTrigger,
 	DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu'
+import useUser from '@/Hooks/useUser'
 const ProfileButton = () => {
+  const {signOut} = useUser()
 	return (
 		<>
 			<DropdownMenu>
@@ -36,7 +38,7 @@ const ProfileButton = () => {
 							</DropdownMenuPortal>
 						</DropdownMenuSub>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>
+						<DropdownMenuItem onClick={()=>signOut()}>
 							<p>Log Out</p> <LogOutIcon />
 						</DropdownMenuItem>
 					</DropdownMenuGroup>
